@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>586c4f9f-20f5-4cb9-b0be-08c46b91596b</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xwt.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\ContentPropertyAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\IValueSerializerContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\ValueSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Markup\ValueSerializerAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MissingReferences.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Xaml\" />
+  </ItemGroup>
+</Project>

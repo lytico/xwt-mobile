@@ -1,0 +1,72 @@
+// 
+// ButtonEventArgs.cs
+//  
+// Author:
+//       Lluis Sanchez <lluis@xamarin.com>
+// 
+// Copyright (c) 2011 Xamarin Inc
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+using System;
+
+namespace Xwt
+{
+	public class ButtonEventArgs: EventArgs
+	{
+		public ButtonEventArgs ()
+		{
+		}
+
+		public PointerButton Button { get; set; }
+
+		/// <summary>
+		/// Gets or sets a value indicating whether this event has been handled
+		/// </summary>
+		/// <value><c>true</c> if handled; otherwise, <c>false</c>.</value>
+		/// <remarks>Setting this property to <c>true</c> will prevent the event from bubbling up in the widget hierarchy</remarks>
+		public bool Handled { get; set; }
+		
+		/// <summary>
+		/// Gets or sets the X coordinate of the mouse cursor
+		/// </summary>
+		/// <value>The x.</value>
+		public double X { get; set; }
+
+		/// <summary>
+		/// Gets or sets the Y coordinate of the mouse cursor
+		/// </summary>
+		/// <value>The x.</value>
+		public double Y { get; set; }
+
+		/// <summary>
+		/// Location of the mouse cursor
+		/// </summary>
+		public Point Position {
+			get { return new Point (X, Y); }
+		}
+
+		/// <summary>
+		/// Gets the number of clicks (e.g. 2 for double-click)
+		/// </summary>
+		/// <value>The multiple press.</value>
+		public int MultiplePress { get; set; }
+	}
+}
+

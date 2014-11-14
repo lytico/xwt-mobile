@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xwt.Shared", "Xwt\Xwt.Shared.shproj", "{E3B1D6B6-8E1D-4ECF-9120-6C94F9C5880B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xwt.Droid", "Xwt.Droid\Xwt.Droid.csproj", "{E3643B45-601B-4295-84A5-1CAAFE5977AE}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xwt.Xaml.Shared", "Xwt.DummyLibs\Xwt.Xaml.Shared.shproj", "{586C4F9F-20F5-4CB9-B0BE-08C46B91596B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xwt.Droid.Tests", "Xwt.Droid.Tests\Xwt.Droid.Tests.csproj", "{D38C984F-7D6B-47A8-A3BF-D33D266FC7C9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D38C984F-7D6B-47A8-A3BF-D33D266FC7C9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D38C984F-7D6B-47A8-A3BF-D33D266FC7C9}.Debug|x86.Build.0 = Debug|Any CPU
+		{D38C984F-7D6B-47A8-A3BF-D33D266FC7C9}.Release|x86.ActiveCfg = Release|Any CPU
+		{D38C984F-7D6B-47A8-A3BF-D33D266FC7C9}.Release|x86.Build.0 = Release|Any CPU
+		{E3643B45-601B-4295-84A5-1CAAFE5977AE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E3643B45-601B-4295-84A5-1CAAFE5977AE}.Debug|x86.Build.0 = Debug|Any CPU
+		{E3643B45-601B-4295-84A5-1CAAFE5977AE}.Release|x86.ActiveCfg = Release|Any CPU
+		{E3643B45-601B-4295-84A5-1CAAFE5977AE}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Xwt.Droid.Tests\Xwt.Droid.Tests.csproj
+	EndGlobalSection
+EndGlobal
