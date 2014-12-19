@@ -65,11 +65,10 @@ namespace Xwt.DroidBackend
 
 			var text = layout.Text;
 
-			// paint.GetTextBounds (text, 0, text.Length, b); is not accurate
 			var metrics = paint.GetFontMetrics ();
-			Baseline = -metrics.Ascent;
-			LineHeight = -metrics.Ascent + metrics.Descent;
-			LineY = Baseline;
+			Baseline = -metrics.Top;
+			LineHeight = - metrics.Ascent + metrics.Descent;
+			LineY = -metrics.Ascent ; //- (metrics.Ascent + metrics.Descent);
 
 			var charWidths = new float[text.Length];
 			paint.GetTextWidths (text, charWidths);
@@ -79,7 +78,7 @@ namespace Xwt.DroidBackend
 
 			var textWidth = charWidths.Sum ();
 
-			if (!HasLineFeed && (layout.Height <= 0 || layout.Height <= Baseline) && (layout.Width <= 0 || textWidth <= layout.Width)) {
+			if (!HasLineFeed && (layout.Height <= 0 || layout.Height <= LineHeight) && (layout.Width <= 0 || textWidth <= layout.Width)) {
 				LineWidth = textWidth;
 				SingleLine (this);
 			} else {
