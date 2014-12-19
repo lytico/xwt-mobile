@@ -60,13 +60,24 @@ namespace Xwt.DroidBackend
 			}
 		}
 
+		/// <summary>
+		/// metrics of the default-display
+		/// </summary>
+		/// <returns>The metrics.</returns>
+		public static DisplayMetrics DefaultMetrics(){
+			var metrics = new DisplayMetrics ();
+			var d = WindowManager.DefaultDisplay;
+			d.GetMetrics (metrics);
+			return metrics;
+		}
+
 		public override double GetScaleFactor (object backend)
 		{
 			var metrics = new DisplayMetrics ();
 			var d = (Android.Views.Display)backend;
 			d.GetMetrics (metrics);
 
-			return metrics.Density * 160d / 96d;
+			return metrics.Density;
 		}
 
 		public override Point GetMouseLocation ()
