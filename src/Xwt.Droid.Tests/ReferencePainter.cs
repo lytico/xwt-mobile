@@ -87,7 +87,7 @@ namespace Xwt.Tests
 			ctx.Restore ();
 		}
 
-		public virtual void RoundetRectangle (Context ctx, double x, double y)
+		public virtual void RoundedRectangle (Context ctx, double x, double y)
 		{
 			// Rounded Rectangle with Arcs
 			ctx.Save ();
@@ -122,7 +122,7 @@ namespace Xwt.Tests
 			SimpleRectangles (ctx, x, y);
 
 			RectangleWithHole (ctx, x + 50, y);
-			RoundetRectangle (ctx, x + 120, y);
+			RoundedRectangle (ctx, x + 120, y);
 
 		}
 

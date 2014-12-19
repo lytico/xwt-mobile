@@ -8,7 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Xwt;
 
-namespace SimpleDroidApp
+namespace Xwt.Droid.Tests
 {
 	[Activity (Label = "Xwt.Droid Tests", MainLauncher = true, Icon = "@drawable/icon", Theme = "@android:style/Theme.NoTitleBar")]
 	public class MainActivity : Activity

@@ -185,6 +185,7 @@ namespace Xwt.DroidBackend
 			try {
 				c.Paint.StrokeWidth = 0.3f;
 				c.Paint.SetStyle (AG.Paint.Style.FillAndStroke);
+
 				var text = layout.Text;
 				var fx = (float)x;
 				var fy = (float)y;

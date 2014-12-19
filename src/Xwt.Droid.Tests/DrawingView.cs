@@ -11,7 +11,7 @@ using Android.Util;
 using Xwt.Drawing;
 using Xwt.DroidBackend;
 
-namespace SimpleDroidApp
+namespace Xwt.Droid.Tests
 {
 
 	public class DrawingView: View
@@ -53,22 +53,20 @@ namespace SimpleDroidApp
 			base.OnDraw (canvas);
 			canvas.DrawColor (Colors.White.ToDroid ());
 
-			var dc = new Xwt.DroidBackend.DroidContext { Canvas = canvas };
-			var ctx = new Xwt.Drawing.Context (dc, Toolkit.CurrentEngine);
-			var scale = Xwt.Desktop.PrimaryScreen.ScaleFactor;
-			ctx.Scale (scale, scale);
+			using (var ctx = canvas.XwtContext ()) {
 
-			var p = new ReferencePainter ();
-			p.Font = this.Font;
+				var p = new ReferencePainter ();
+				p.Font = this.Font;
 
-			if (true) {
-
-				p.Figures (ctx, 5, 5);
-				p.Transforms (ctx, 5, 150);
-				p.Texts (ctx, 5, 250);
-				p.PatternsAndImages (ctx, 205, 5);
-			} else
-				TestDrawing (ctx, 5, 5);
+				if (true) {
+					p.Figures (ctx, 5, 5);
+					p.Transforms (ctx, 5, 150);
+					p.Texts (ctx, 5, 250);
+					p.PatternsAndImages (ctx, 205, 5);
+				} else {
+					TestDrawing (ctx, 5, 5);
+				}
+			}
 		}
 
 		protected void TestDrawing (Xwt.Drawing.Context ctx, double x, double y)
