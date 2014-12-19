@@ -116,10 +116,10 @@ namespace Xwt.DroidBackend
 				angle2 = 360;
 
 			if ((angle2 - angle1) == 360)
-				c.Path.AddCircle ((float)xc, (float)yc, (float)radius, AG.Path.Direction.Cw);
+				c.Path.AddCircle ((float)(xc), (float)(yc), (float)radius, AG.Path.Direction.Cw);
 			else
 				c.Path.ArcTo (
-					new AG.RectF ((float)xc, (float)yc, (float)(xc + radius), (float)(yc + radius)), 
+					new AG.RectF ((float)(xc- radius), (float)(yc- radius), (float)(xc+radius), (float)(yc+radius)), 
 					(float)angle1, 
 					(float)(angle2 - angle1), 
 					false);
