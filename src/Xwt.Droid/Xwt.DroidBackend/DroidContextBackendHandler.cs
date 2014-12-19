@@ -191,7 +191,8 @@ namespace Xwt.DroidBackend
 				var fy = (float)y;
 
 				var wrapper = new TextWrapper ();
-				wrapper.SingleLine = w => c.Canvas.DrawText (text, fx, fy + w.LineY, c.Paint);
+				wrapper.SingleLine = w => 
+					c.Canvas.DrawText (text, fx, fy + w.LineY, c.Paint);
 				wrapper.MultiLine = w => {
 					var st = text.Substring (w.LineStart, w.CursorPos - w.LineStart);
 					if (w.LineY + w.LineHeight > w.MaxHeight && w.CursorPos < text.Length)
@@ -252,7 +253,9 @@ namespace Xwt.DroidBackend
 		public override void ModifyCTM (object backend, Drawing.Matrix m)
 		{
 			var c = (DroidContext)backend;
-			c.CTM.SetValues (m);
+			var am = c.CTM;
+			am.Prepend (m);
+			c.Canvas.Matrix = am;
 		}
 
 		public override Drawing.Matrix GetCTM (object backend)
