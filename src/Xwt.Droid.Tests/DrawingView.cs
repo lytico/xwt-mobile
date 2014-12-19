@@ -44,7 +44,7 @@ namespace Xwt.Droid.Tests
 
 		private void Initialize ()
 		{ 
-			this.Default ();
+			this.DefaultSettings ();
 		}
 
 		protected override void OnDraw (Android.Graphics.Canvas canvas)

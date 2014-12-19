@@ -114,7 +114,7 @@ namespace Xwt.DroidBackend
 		public AG.Paint Paint {
 			get {
 				if (_paint == null) {
-					_paint = new Android.Text.TextPaint ().Default ();
+					_paint = new Android.Text.TextPaint ().DefaultSettings ();
 					SetPaint (_paint);
 				}
 				return _paint;

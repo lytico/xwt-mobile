@@ -151,7 +151,7 @@ namespace Xwt.DroidBackend
 		/// set default values of Paint
 		/// </summary>
 		/// <param name="value">Value.</param>
-		public static AG.Paint Default (this AG.Paint value)
+		public static AG.Paint DefaultSettings (this AG.Paint value)
 		{
 			value.AntiAlias = true;
 			value.FilterBitmap = true;
@@ -162,7 +162,7 @@ namespace Xwt.DroidBackend
 		/// set default values of View
 		/// </summary>
 		/// <param name="value">Value.</param>
-		public static AV.View Default (this AV.View value)
+		public static AV.View DefaultSettings (this AV.View value)
 		{
 			value.SetLayerType (AV.LayerType.Software, null);
 			value.DrawingCacheEnabled = true;

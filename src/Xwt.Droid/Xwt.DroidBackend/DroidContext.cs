@@ -51,7 +51,7 @@ namespace Xwt.DroidBackend
 		Paint _paint = null;
 
 		public Paint Paint {
-			get { return _paint ?? (_paint = new Paint ().Default ()); }
+			get { return _paint ?? (_paint = new Paint ().DefaultSettings ()); }
 			set {
 				if (_paint != value && _paint != null)
 					_paint.Dispose ();
