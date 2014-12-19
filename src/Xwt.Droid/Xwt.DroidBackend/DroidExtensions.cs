@@ -106,16 +106,43 @@ namespace Xwt.DroidBackend
 			dest.SetValues (v);
 		}
 
+		public static void Prepend (this AG.Matrix dest, Matrix m)
+		{
+			dest.PreScale ((float)m.M11, (float)m.M22);
+			dest.PreSkew ((float)m.M21, (float)m.M12);
+			dest.PreTranslate ((float)m.OffsetX, (float)m.OffsetY);
+		}
+
 		public static Font ToXwt (this FontData backend)
 		{
 			return CreateFrontend<Font> (backend);
 		}
 
+		static float? _xdpi = null;
+		public static float Xdpi {
+			get { 
+				if (_xdpi.HasValue)
+					return _xdpi.Value;
+				using (var m = DroidDesktopBackend.DefaultMetrics ()) {
+					_xdpi = m.Xdpi;
+					return _xdpi.Value;
+				}
+			}
+		}
+
+		/// <summary>
+		/// sizes are for 96dpi; use this factor to correct font size
+		/// </summary>
+		public static float FontFactor = 120f/96f; 
+
 		public static void SetFont (this AG.Paint paint, FontData font)
 		{
 			paint.SetTypeface (font.Typeface);
-			paint.TextSize = (float)font.Size;
-#if AndroidApi21
+
+			// textsize is in pixel, fontsize in points
+			// point = pix * 72 / screen.dpi => pix = point * dpi / 72 
+			paint.TextSize = (float)(font.Size * Xdpi / 72f) * FontFactor;
+#if __ANDROID_21__
             paint.LetterSpacing = ....
 #endif
 		}
@@ -168,6 +195,20 @@ namespace Xwt.DroidBackend
 			value.DrawingCacheEnabled = true;
 			value.DrawingCacheQuality = AV.DrawingCacheQuality.High;
 			return value;
+		}
+
+		public static Context XwtContext(this AG.Canvas canvas){
+			return XwtContext (canvas, true);
+		}
+
+		public static Context XwtContext(this AG.Canvas canvas, bool doscale){
+			var dc = new DroidContext { Canvas = canvas };
+			var context = new Context (dc, Toolkit.CurrentEngine);
+			if (doscale) {
+				var scale = Desktop.PrimaryScreen.ScaleFactor;
+				context.Scale (scale, scale);
+			}
+			return context;
 		}
 
 		public static T CreateFrontend<T> (object backend)
