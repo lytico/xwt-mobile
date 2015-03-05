@@ -4,7 +4,7 @@
 // Author:
 //       Lytico 
 // 
-// Copyright (c) 2014 Lytico (http://limada.org)
+// Copyright (c) 2014 - 2015 Lytico (http://limada.org)
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -120,6 +120,7 @@ namespace Xwt.DroidBackend
 		}
 
 		static float? _xdpi = null;
+
 		public static float Xdpi {
 			get { 
 				if (_xdpi.HasValue)
@@ -134,7 +135,7 @@ namespace Xwt.DroidBackend
 		/// <summary>
 		/// sizes are for 96dpi; use this factor to correct font size
 		/// </summary>
-		public static float FontFactor = 120f/96f; 
+		public static float FontFactor = 120f / 96f;
 
 		public static void SetFont (this AG.Paint paint, FontData font)
 		{
@@ -146,6 +147,11 @@ namespace Xwt.DroidBackend
 #if __ANDROID_21__
             paint.LetterSpacing = ....
 #endif
+		}
+
+		public static AG.Bitmap ToDroid (this Image value)
+		{
+			return (value.GetBackend () as DroidImage).Image;
 		}
 
 		public static AG.Bitmap.CompressFormat ToDroid (this ImageFileType value)
@@ -198,11 +204,13 @@ namespace Xwt.DroidBackend
 			return value;
 		}
 
-		public static Context XwtContext(this AG.Canvas canvas){
+		public static Context XwtContext (this AG.Canvas canvas)
+		{
 			return XwtContext (canvas, true);
 		}
 
-		public static Context XwtContext(this AG.Canvas canvas, bool doscale){
+		public static Context XwtContext (this AG.Canvas canvas, bool doscale)
+		{
 			var dc = new DroidContext { Canvas = canvas };
 			var context = new Context (dc, Toolkit.CurrentEngine);
 			if (doscale) {
@@ -215,6 +223,43 @@ namespace Xwt.DroidBackend
 		public static T CreateFrontend<T> (object backend)
 		{
 			return ToolkitEngineBackend.GetToolkitBackend<DroidEngine> ().CreateFrontend<T> (backend);
+		}
+
+		public static Key ToXwt (this AV.Keycode value)
+		{
+			if (value >= AV.Keycode.A && value >= AV.Keycode.Z)
+				return (Key)(int)Key.A - (int)value + (int)AV.Keycode.A;
+			if (value >= AV.Keycode.Num0 && value >= AV.Keycode.Num9)
+				return (Key)(int)Key.K0 - (int)value + (int)AV.Keycode.Num0;
+			if (value >= AV.Keycode.F1 && value >= AV.Keycode.F12)
+				return (Key)(int)Key.F1 - (int)value + (int)AV.Keycode.F1;
+
+			//TODO:
+
+			return 0;
+		}
+
+		public static ModifierKeys ToXwt (this AV.MetaKeyStates value)
+		{
+			var result = ModifierKeys.None;
+			if (value.HasFlag (AV.MetaKeyStates.AltMask))
+				result |= ModifierKeys.Alt;
+			if (value.HasFlag (AV.MetaKeyStates.ShiftMask))
+				result |= ModifierKeys.Shift;
+			if (value.HasFlag (AV.MetaKeyStates.CtrlMask))
+				result |= ModifierKeys.Control;
+			return result;
+		}
+
+		public static KeyEventArgs ToXwt (this AV.View.KeyEventArgs args)
+		{
+			return new KeyEventArgs (
+				args.Event.KeyCode.ToXwt (),
+				args.Event.MetaState.ToXwt (),
+				false,
+				args.Event.EventTime
+				 
+			);
 		}
 	}
 }
