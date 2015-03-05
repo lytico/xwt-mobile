@@ -26,6 +26,7 @@
 
 using System;
 using Xwt.Backends;
+using Android.App;
 
 namespace Xwt.DroidBackend
 {
@@ -76,7 +77,7 @@ namespace Xwt.DroidBackend
 
 		public override void InvokeAsync (Action action)
 		{
-			throw new NotImplementedException ();
+			(DroidDesktopBackend.Context as Activity).RunOnUiThread (action);
 		}
 
 		public override object TimerInvoke (Func<bool> action, TimeSpan timeSpan)
