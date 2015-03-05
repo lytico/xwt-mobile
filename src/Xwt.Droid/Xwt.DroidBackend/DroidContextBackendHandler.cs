@@ -291,7 +291,7 @@ namespace Xwt.DroidBackend
 		public override void Scale (object backend, double scaleX, double scaleY)
 		{
 			var c = (DroidContext)backend;
-			ResetScale (backend);
+			//ResetScale (backend);
 			c.Canvas.Scale ((float)scaleX, (float)scaleY);
 		}
 

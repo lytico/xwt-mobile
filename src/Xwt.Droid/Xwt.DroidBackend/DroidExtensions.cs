@@ -108,9 +108,10 @@ namespace Xwt.DroidBackend
 
 		public static void Prepend (this AG.Matrix dest, Matrix m)
 		{
+			dest.PreTranslate ((float)m.OffsetX, (float)m.OffsetY);
 			dest.PreScale ((float)m.M11, (float)m.M22);
 			dest.PreSkew ((float)m.M21, (float)m.M12);
-			dest.PreTranslate ((float)m.OffsetX, (float)m.OffsetY);
+
 		}
 
 		public static Font ToXwt (this FontData backend)
