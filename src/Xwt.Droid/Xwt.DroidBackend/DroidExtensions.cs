@@ -201,6 +201,7 @@ namespace Xwt.DroidBackend
 			value.SetLayerType (AV.LayerType.Software, null);
 			value.DrawingCacheEnabled = true;
 			value.DrawingCacheQuality = AV.DrawingCacheQuality.High;
+			//value.Focusable = true;
 			return value;
 		}
 
