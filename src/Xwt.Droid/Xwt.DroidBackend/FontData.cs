@@ -75,7 +75,10 @@ namespace Xwt.DroidBackend
 			}
 		}
 
-		public double Size { get; set; }
+		public double Size { 
+			get; 
+			set; 
+		}
 
 		public FontWeight Weight { get; set; }
 
@@ -97,6 +100,12 @@ namespace Xwt.DroidBackend
 			Style = font.Style;
 			Weight = font.Weight;
 			Stretch = font.Stretch;
+		}
+
+		public FontData Clone() {
+			var result = new FontData ();
+			result.CopyFrom (this);
+			return result;
 		}
 
 		public static FontData Default { 

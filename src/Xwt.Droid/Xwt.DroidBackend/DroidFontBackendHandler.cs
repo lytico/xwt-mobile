@@ -62,38 +62,35 @@ namespace Xwt.DroidBackend {
 		}
 
 		public override object Copy (object handle) {
-			var d = (FontData) handle;
-			var f = new FontData();
-			f.CopyFrom(d);
-			return f;
+			return ((FontData)handle).Clone ();
 		}
 
 		public override object SetSize (object handle, double size) {
-			var d = (FontData) handle;
+			var d = ((FontData)handle).Clone ();
 			d.Size = size;
 			return d;
 		}
 
 		public override object SetFamily (object handle, string family) {
-			var d = (FontData) handle;
+			var d = ((FontData)handle).Clone ();
 			d.Family = family;
 			return d;
 		}
 
 		public override object SetStyle (object handle, FontStyle style) {
-			var d = (FontData) handle;
+			var d = ((FontData)handle).Clone ();
 			d.Style = style;
 			return d;
 		}
 
 		public override object SetWeight (object handle, FontWeight weight) {
-			var d = (FontData) handle;
+			var d = ((FontData)handle).Clone ();
 			d.Weight = weight;
 			return d;
 		}
 
 		public override object SetStretch (object handle, FontStretch stretch) {
-			var d = (FontData) handle;
+			var d = ((FontData)handle).Clone ();
 			d.Stretch = stretch;
 			return d;
 		}
