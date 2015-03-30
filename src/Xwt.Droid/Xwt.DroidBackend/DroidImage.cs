@@ -33,77 +33,96 @@ using AG = Android.Graphics;
 
 namespace Xwt.DroidBackend {
 
-	public class DroidImage:IDisposable {
+    public class DroidImage : IDisposable {
 
-		public DroidImage(int width, int height, ImageFormat format) {
-			this.Image = AG.Bitmap.CreateBitmap (width, height, format.ToDroid());
-		}
+        public DroidImage (int width, int height, ImageFormat format) {
+            this.Image = AG.Bitmap.CreateBitmap (width, height, format.ToDroid ());
+        }
 
-		public DroidImage (ImageDrawCallback drawCallback) {
-			this._drawCallback = drawCallback;
-		}
+        public DroidImage (ImageDrawCallback drawCallback) {
+            this._drawCallback = drawCallback;
+        }
 
-		public DroidImage (AG.Bitmap image) {
-			this.Image = image;
-		}
+        public DroidImage (AG.Bitmap image) {
+            this.Image = image;
+        }
 
-		AG.Bitmap _image = null;
-		public  AG.Bitmap Image {
-			get {
-				return _image;
-			}
-			protected set { _image = value; }
-		}
+        AG.Bitmap _image = null;
 
-		ImageDrawCallback _drawCallback = null;
+        public AG.Bitmap Image {
+            get { return _image; }
+            protected set { _image = value; }
+        }
 
-		protected void Dispose(bool disposing) {
-			Image = null;
-		}
+        ImageDrawCallback _drawCallback = null;
 
-		public void Dispose() {
-			Dispose(true);
-		}
+        protected void Dispose (bool disposing) {
+            Image = null;
+        }
 
-		~DroidImage() {
-			Dispose(false);
-		}
+        public void Dispose () {
+            Dispose (true);
+        }
 
-		public static DroidImage LoadFromStream (Stream stream) {
-			return new DroidImage (AG.BitmapFactory.DecodeStream (stream));
-		}
+        ~DroidImage () {
+            Dispose (false);
+        }
 
-		public void SaveToStream (Stream stream, ImageFileType fileType) {
-			if (fileType == ImageFileType.Bmp)
-				throw new ArgumentException (string.Format("{0} is not supported", fileType));
-			Image.Compress (fileType.ToDroid (), 100, stream);
-		}
+        public static DroidImage LoadFromStream (Stream stream) {
+            return new DroidImage (AG.BitmapFactory.DecodeStream (stream));
+        }
 
-		public bool IsBitmap  {
-			get {return Image is AG.Bitmap;}
-		}
+        public void SaveToStream (Stream stream, ImageFileType fileType) {
+            if (Image == null)
+                return;
+            if (fileType == ImageFileType.Bmp)
+                throw new ArgumentException (string.Format ("{0} is not supported", fileType));
+            Image.Compress (fileType.ToDroid (), 100, stream);
+        }
 
-		public Size Size { get { return new Size (Image.Width, Image.Height); } }
+        public bool IsBitmap {
+            get {
+                if (Image == null)
+                    return false;
+                return Image is AG.Bitmap;
+            }
+        }
 
-		public DroidImage CopyBitmap () {
-			return new DroidImage (Image.Copy (Image.GetConfig (), true));
-		}
+        public Size Size {
+            get {
+                if (Image == null)
+                    return Size.Zero;
+                return new Size (Image.Width, Image.Height);
+            }
+        }
 
-		public ImageFormat Format { get { return Image.GetBitmapInfo ().Format.ToXwt (); } }
+        public DroidImage CopyBitmap () {
+            if (Image == null)
+                return null;
+            return new DroidImage (Image.Copy (Image.GetConfig (), true));
+        }
 
-		public object ConvertToBitmap (double width, double height, double scaleFactor, ImageFormat format) {
-			if (_drawCallback !=null) {
-				var image = new DroidImage((int)width,(int)height,format);
-				using(var canvas = new AG.Canvas(image.Image))
-				using (var dc = new DroidContext{Canvas=canvas})				{
-					canvas.Scale ((float)scaleFactor, (float)scaleFactor);
-					_drawCallback(dc,new Xwt.Rectangle(0,0,width,height));
-				}
-				return image;
-			}
+        public ImageFormat Format {
+            get {
+                if (Image == null)
+                    return ImageFormat.Other;
+                return Image.GetBitmapInfo ().Format.ToXwt ();
+            }
+        }
 
-			throw new NotSupportedException();
-		}
-	}
-    
+        public object ConvertToBitmap (double width, double height, double scaleFactor, ImageFormat format) {
+            if (_drawCallback != null) {
+                var image = new DroidImage ((int) width, (int) height, format);
+                using (var canvas = new AG.Canvas (image.Image))
+                using (var dc = new DroidContext { Canvas = canvas }) {
+                    canvas.Scale ((float) scaleFactor, (float) scaleFactor);
+                    _drawCallback (dc, new Xwt.Rectangle (0, 0, width, height));
+                }
+                return image;
+            }
+
+            throw new NotSupportedException ();
+        }
+    }
+
 }
