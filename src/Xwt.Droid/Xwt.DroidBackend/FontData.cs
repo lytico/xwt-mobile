@@ -40,6 +40,12 @@ namespace Xwt.DroidBackend
 			Style = FontStyle.Normal;
 		}
 
+        internal FontData (Typeface typeface) {
+            _family = typeface.FamilyName();
+            _style = typeface.Style.ToXwt ();
+            _typeface = typeface;
+        }
+
 		Typeface _typeface = null;
 
 		public Typeface Typeface {
@@ -110,10 +116,9 @@ namespace Xwt.DroidBackend
 
 		public static FontData Default { 
 			get {
-				return new FontData { 
-					Family = "sans-serif",
+				return new FontData(Typeface.Default) { 
 					Size = 10,
-				}; 
+				};
 			}
 		}
 	}
