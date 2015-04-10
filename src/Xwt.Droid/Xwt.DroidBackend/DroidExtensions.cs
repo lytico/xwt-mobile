@@ -30,6 +30,7 @@ using Xwt.Backends;
 using Xwt.Drawing;
 using AG = Android.Graphics;
 using AV = Android.Views;
+using AW = Android.Widget;
 
 namespace Xwt.DroidBackend
 {
@@ -55,7 +56,20 @@ namespace Xwt.DroidBackend
 			return AG.TypefaceStyle.Normal;
 		}
 
-		public static AG.Color ToDroid (this Color value)
+        public static FontStyle ToXwt (this  AG.TypefaceStyle value) 
+        {
+            if (AG.TypefaceStyle.Normal == value)
+                return FontStyle.Normal;
+            if (AG.TypefaceStyle.Italic == value)
+                return FontStyle.Italic;
+            if (AG.TypefaceStyle.Bold == value)
+                return FontStyle.Oblique;
+            if (AG.TypefaceStyle.BoldItalic == value)
+                return (FontStyle.Oblique | FontStyle.Italic);
+            return FontStyle.Normal;
+        }
+
+        public static AG.Color ToDroid (this Color value)
 		{
 			return new AG.Color ((int)value.ToArgb ());
 		}
@@ -114,12 +128,44 @@ namespace Xwt.DroidBackend
 
 		}
 
+	    public static FontData ToXwt (this AG.Typeface backend) 
+        {
+            if (backend == null)
+                return null;
+	        return new FontData (backend);
+	    }
+
 		public static Font ToXwt (this FontData backend)
 		{
-			return CreateFrontend<Font> (backend);
+            if (backend == null)
+                return null;
+            return CreateFrontend<Font> (backend);
+
 		}
 
-		static float? _xdpi = null;
+	    public static Font GetFont (this AW.TextView view) 
+        {
+	        var fontData = view.Typeface.ToXwt ();
+            if (fontData == null)
+                return null;
+	        fontData.Size = view.TextSize;
+            return fontData.ToXwt ();
+	    }
+
+	    public static string FamilyName (this AG.Typeface typeface) 
+        {
+            if (typeface == AG.Typeface.SansSerif)
+                return "sans";
+            if (typeface == AG.Typeface.Serif)
+                return "serif";
+            if (typeface == AG.Typeface.Monospace)
+                return "monospace";
+	        if (typeface == AG.Typeface.Default)
+                return "normal";
+            return "normal";
+	    }
+
+	    static float? _xdpi = null;
 
 		public static float Xdpi {
 			get { 
