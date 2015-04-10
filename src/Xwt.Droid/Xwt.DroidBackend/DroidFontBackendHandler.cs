@@ -40,17 +40,23 @@ namespace Xwt.DroidBackend {
 
 		public override object GetSystemDefaultMonospaceFont ()
 		{
-			return new FontData { Family = "sans-monospace", Size = 10 };
+            return new FontData (Typeface.Monospace) {
+                Size = 10,
+            };
 		}
 
 		public override object GetSystemDefaultSansSerifFont ()
 		{
-			return new FontData { Family = "sans-serif", Size = 10 };
+            return new FontData (Typeface.SansSerif) {
+                Size = 10,
+            };
 		}
 
 		public override object GetSystemDefaultSerifFont ()
 		{
-			return new FontData { Family = "serif", Size = 10 };
+            return new FontData (Typeface.Serif) {
+                Size = 10,
+            };
 		}
 
         public override System.Collections.Generic.IEnumerable<string> GetInstalledFonts () {
